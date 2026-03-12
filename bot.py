@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import random
 import siggy_data
+from siggy_ai import ask_siggy
 
 # ===============================
 # BOT CONFIG
@@ -264,6 +265,20 @@ async def prophecy(ctx):
     ]
 
     await ctx.send(random.choice(prophecies))
+
+
+# ===============================
+#  SIGGY AI AGENT RESPONSES
+# =============================== 
+
+@bot.command()
+async def ask(ctx, *, question):
+
+    await ctx.send("🔮 Siggy is consulting the cosmic spirits...")
+
+    answer = ask_siggy(question)
+
+    await ctx.send(answer)
 
 # ===============================
 # BOT START
