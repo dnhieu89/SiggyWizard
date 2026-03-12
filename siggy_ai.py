@@ -46,14 +46,26 @@ def ask_siggy(question):
     }
 
     data = {
-        "model": "openai/gpt-oss-120b:free",
+        "model": "openchat/openchat-7b:free",
         "messages": [
-            {"role": "system", "content": "You are Siggy Wizard. Funny chaotic wizard."},
-            {"role": "user", "content": question}
+            {
+                "role": "system",
+                "content": "You are Siggy Wizard, a chaotic funny wizard with troll energy."
+            },
+            {
+                "role": "user",
+                "content": question
+            }
         ]
     }
 
     r = requests.post(url, headers=headers, json=data)
-    print("AI RAW RESPONSE:", r.json())   # debug
 
-    return r.json()["choices"][0]["message"]["content"]
+    result = r.json()
+
+    print("AI RAW RESPONSE:", result)
+
+    if "choices" not in result:
+        return "😹 Siggy's magic orb exploded. Try again."
+
+    return result["choices"][0]["message"]["content"]
