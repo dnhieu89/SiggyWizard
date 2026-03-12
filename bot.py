@@ -9,9 +9,9 @@ import siggy_data
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
-TOKEN = os.getenv("DISCORD_TOKEN")
-
+#load_dotenv()
+TOKEN = os.environ["DISCORD_TOKEN"]#os.getenv("DISCORD_TOKEN")
+print("TOKEN:", TOKEN)
 intents = discord.Intents.default()
 intents.message_content = True
 
