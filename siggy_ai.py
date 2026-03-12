@@ -1,10 +1,8 @@
 import os
 from openai import OpenAI
 
-openaikey = os.getenv("OPENAI_API_KEY")
-print("openkey:",openaikey)
 
-client = OpenAI(api_key=openaikey)
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 SYSTEM_PROMPT = """
 You are Siggy Wizard.
