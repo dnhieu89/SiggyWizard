@@ -54,5 +54,6 @@ def ask_siggy(question):
     }
 
     r = requests.post(url, headers=headers, json=data)
+    print("AI RAW RESPONSE:", r.json())   # debug
 
     return r.json()["choices"][0]["message"]["content"]
