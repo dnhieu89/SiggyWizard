@@ -46,7 +46,7 @@ def ask_siggy(question):
     }
 
     data = {
-        "model": "openchat/openchat-7b:free",
+        "model": "nvidia/nemotron-3-super:free",
         "messages": [
             {
                 "role": "system",
