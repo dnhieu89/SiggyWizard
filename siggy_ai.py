@@ -1,7 +1,7 @@
 import os
 from openai import OpenAI
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=os.environ("OPENAI_API_KEY"))
 
 SYSTEM_PROMPT = """
 You are Siggy Wizard.
@@ -27,5 +27,5 @@ def ask_siggy(question):
             {"role": "user", "content": question}
         ]
     )
-
+    print("answerSiggy:", response.choices[0].message.content)
     return response.choices[0].message.content
