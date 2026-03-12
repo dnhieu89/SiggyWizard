@@ -271,14 +271,19 @@ async def prophecy(ctx):
 #  SIGGY AI AGENT RESPONSES
 # =============================== 
 
+
 @bot.command()
 async def ask(ctx, *, question):
 
-    await ctx.send("🔮 Siggy is consulting the cosmic spirits...")
+    await ctx.send("🔮 Siggy is thinking...")
 
-    answer = ask_siggy(question)
+    try:
+        answer = ask_siggy(question)
+        await ctx.send(answer)
 
-    await ctx.send(answer)
+    except Exception as e:
+        print("AI ERROR:", e)
+        await ctx.send("😹 Siggy got confused. Try again!")
 
 # ===============================
 # BOT START
