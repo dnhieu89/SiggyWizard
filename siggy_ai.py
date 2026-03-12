@@ -46,7 +46,7 @@ def ask_siggy(question):
     }
 
     data = {
-        "model": "mistralai/mistral-7b-instruct",
+        "model": "openai/gpt-oss-120b:free",
         "messages": [
             {"role": "system", "content": "You are Siggy Wizard. Funny chaotic wizard."},
             {"role": "user", "content": question}
