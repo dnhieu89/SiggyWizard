@@ -194,7 +194,7 @@ async def help(ctx):
 → Flip a coin with Siggy.
 
 🔮 **Siggy Fun**
-`!siggy`
+`!siggytalk`
 → Random Siggy message.
 
 
