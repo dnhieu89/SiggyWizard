@@ -46,7 +46,7 @@ def ask_siggy(question):
     }
 
     data = {
-        "model": "nvidia/nemotron-3-super:free",
+        "model": "openrouter/free",
         "messages": [
             {
                 "role": "system",
