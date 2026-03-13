@@ -66,7 +66,7 @@ def ask_siggy(question):
         "model": "openrouter/free",
         "max_tokens":300,
         "temperature": 0.8,
-    	"reasoning": { "exclude": True },
+    	# "reasoning": { "exclude": True },
         "messages": [
             {
                 "role": "system",
