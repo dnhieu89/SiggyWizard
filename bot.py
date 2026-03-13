@@ -275,15 +275,20 @@ async def prophecy(ctx):
 @bot.command()
 async def ask(ctx, *, question):
 
-    await ctx.send("🔮 Siggy is thinking...")
+    await ctx.send("🔮 Siggy is consulting the cosmic scroll...")
 
     try:
-        answer = ask_siggy(question)
-        await ctx.send(answer)
+         response = ask_siggy(question)
+
+        # split message if too long
+        chunks = [response[i:i+1900] for i in range(0, len(response), 1900)]
+
+        for chunk in chunks:
+            await ctx.send(chunk)
 
     except Exception as e:
         print("AI ERROR:", e)
-        await ctx.send("😹 Siggy got confused. Try again!")
+        await ctx.send("🧙‍♂️ Siggy's spell fizzled! The cosmic scroll refused to answer. Try summoning your question again.")
 
 # ===============================
 # BOT START

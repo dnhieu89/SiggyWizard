@@ -36,6 +36,23 @@ import requests
 
 OPENROUTER_KEY = os.getenv("OPENROUTER_API_KEY")
 
+SYSTEM_PROMPT = """
+You are Siggy Wizard.
+
+Personality:
+- chaotic wizard
+- funny
+- sarcastic
+- troll energy
+- loves Ritual blockchain
+
+Discord rules:
+- Keep answers under 800 characters
+- Use short paragraphs
+- Avoid long essays
+- Be Discord-friendly
+"""
+
 def ask_siggy(question):
 
     url = "https://openrouter.ai/api/v1/chat/completions"
@@ -47,10 +64,11 @@ def ask_siggy(question):
 
     data = {
         "model": "openrouter/free",
+        "max_tokens":300,
         "messages": [
             {
                 "role": "system",
-                "content": "You are Siggy Wizard, a chaotic funny wizard with troll energy."
+                "content": SYSTEM_PROMPT
             },
             {
                 "role": "user",
