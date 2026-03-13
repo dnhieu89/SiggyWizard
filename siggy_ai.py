@@ -105,7 +105,7 @@ def ask_siggy(question):
     url = "https://openrouter.ai/api/v1/chat/completions"
 
     system_prompt =SYSTEM_PROMPT
-    if is_ritual_question(question)
+    if is_ritual_question(question):
        system_prompt = SYSTEM_PROMPT_RITUAL
 
     headers = {
