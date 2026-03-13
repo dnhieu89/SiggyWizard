@@ -115,7 +115,7 @@ def ask_siggy(question):
 
     data = {
         #"model": "openrouter/free",
-        "model": "nvidia/nemotron-3-nano-30b-a3b:free",
+        "model": "openrouter/hunter-alpha",
         "max_tokens":500,
         "temperature": 0.8,
     	"reasoning": { "exclude": True },
