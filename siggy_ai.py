@@ -115,7 +115,7 @@ def ask_siggy(question):
 
     data = {
         #"model": "openrouter/free",
-        "model": "meta-llama/llama-3.1-8b-instruct:free"
+        "model": "meta-llama/llama-3.1-8b-instruct:free",
         "max_tokens":500,
         "temperature": 0.8,
     	"reasoning": { "exclude": True },
