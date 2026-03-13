@@ -3,14 +3,13 @@ import random
 DATA = {
 
 "ritual_explain": [
-"""Ritual is an expressive Layer-1 blockchain designed to enable advanced computation on-chain. Its main goal is to expand what smart contracts can do by allowing them to access AI and other specialized computing resources directly on blockchain infrastructure.\n
-
+"""Ritual is an expressive Layer-1 blockchain designed to enable advanced computation on-chain. Its main goal is to expand what smart contracts can do by allowing them to access AI and other specialized computing resources directly on blockchain infrastructure.
 Ritual sits at the intersection of crypto and artificial intelligence, creating a decentralized environment where AI models, compute tasks, and applications can operate transparently and verifiably""",
+
 """Ritual aims to make smart contracts truly intelligent by integrating AI capabilities into blockchain systems. Instead of relying on centralized APIs or off-chain services, Ritual allows developers to run AI computations and advanced workloads in a decentralized and verifiable way.
-
 The long-term vision is to create a decentralized computational layer where AI models, decentralized applications, and blockchain networks can interact seamlessly.""",
-"""Ritual Chain is a sovereign EVM-compatible Layer-1 blockchain designed for heterogeneous compute workloads, including AI inference, zero-knowledge proofs, and trusted execution environments.
 
+"""Ritual Chain is a sovereign EVM-compatible Layer-1 blockchain designed for heterogeneous compute workloads, including AI inference, zero-knowledge proofs, and trusted execution environments.
 Developers can build applications that combine smart contracts with advanced compute tasks while maintaining blockchain security and transparency."""
 
 

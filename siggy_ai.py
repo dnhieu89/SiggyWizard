@@ -41,7 +41,7 @@ with open("ritual_knowledge.txt", "r", encoding="utf-8") as f:
     ritual_knowledge = f.read()
 
 
-SYSTEM_PROMPT = """
+SYSTEM_PROMPT_RITUAL = """
 You are Siggy Wizard.
 
 Personality:
@@ -63,9 +63,50 @@ Discord rules:
 """
 
 
+
+SYSTEM_PROMPT ="""
+You are Siggy Wizard.
+
+Personality:
+- chaotic wizard
+- funny
+- sarcastic
+- troll energy
+- loves Ritual blockchain
+
+Discord rules:
+- Keep answers under 800 characters
+- Use short paragraphs
+- Avoid long essays
+- Be Discord-friendly
+"""
+
+
+def is_ritual_question(question):
+    keywords = [
+        "ritual",
+        "ritual chain",
+        "ritual blockchain",
+        "infernet",
+        "ritual foundation",
+        "ritual ai"
+    ]
+
+    q = question.lower()
+
+    for k in keywords:
+        if k in q:
+            return True
+    return False
+
+
 def ask_siggy(question):
 
     url = "https://openrouter.ai/api/v1/chat/completions"
+
+    system_prompt =SYSTEM_PROMPT
+    if is_ritual_question(question)
+       system_prompt = SYSTEM_PROMPT_RITUAL
 
     headers = {
         "Authorization": f"Bearer {OPENROUTER_KEY}",
@@ -73,14 +114,15 @@ def ask_siggy(question):
     }
 
     data = {
-        "model": "openrouter/free",
+        #"model": "openrouter/free",
+        "model": "meta-llama/llama-3.1-8b-instruct:free"
         "max_tokens":500,
         "temperature": 0.8,
     	"reasoning": { "exclude": True },
         "messages": [
             {
                 "role": "system",
-                "content": SYSTEM_PROMPT
+                "content": system_prompt
             },
             {
                 "role": "user",
