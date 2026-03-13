@@ -84,22 +84,18 @@ def ask_siggy(question):
     result = r.json()
 
     print("AI RAW RESPONSE:", result)
+    error_message = (
+        "😹 Siggy opened the magic orb to answer…\n"
+        "but the AI agent gas fee drained the treasury.\n"
+        "Wallet empty. Orb offline.\n"
+        "Try again after Siggy finds some coins!"
+    )
 
     if "choices" not in result:
-         return (
-        "😹 Siggy opened the magic orb to answer…\n"
-        "but the AI agent gas fee drained the treasury.\n"
-        "Wallet empty. Orb offline.\n"
-        "Try again after Siggy finds some coins!"
-    )
+         return error_message
     message = result["choices"][0]["message"]
+    content = message["content"]
+    if not content:
+    	return error_message
 
-	content = message.get("content")
-	if not content:
-		return (
-        "😹 Siggy opened the magic orb to answer…\n"
-        "but the AI agent gas fee drained the treasury.\n"
-        "Wallet empty. Orb offline.\n"
-        "Try again after Siggy finds some coins!"
-    )
-    return content#result["choices"][0]["message"]["content"]
+    return content
