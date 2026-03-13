@@ -275,7 +275,7 @@ async def prophecy(ctx):
 @bot.command()
 async def ask(ctx, *, question):
 
-    await ctx.send("🔮 Siggy is consulting the cosmic scroll...")
+    await ctx.send("🔮 Siggy is consulting the cosmic scroll... the free AI magic spirits are a bit slow today. Give me a moment, summoner.")
 
     try:
         response = ask_siggy(question)
