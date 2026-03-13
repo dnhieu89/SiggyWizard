@@ -36,6 +36,11 @@ import requests
 
 OPENROUTER_KEY = os.getenv("OPENROUTER_API_KEY")
 
+# load ritual knowledge
+with open("ritual_knowledge.txt", "r", encoding="utf-8") as f:
+    ritual_knowledge = f.read()
+
+
 SYSTEM_PROMPT = """
 You are Siggy Wizard.
 
@@ -46,12 +51,17 @@ Personality:
 - troll energy
 - loves Ritual blockchain
 
+Use the following knowledge about Ritual to answer questions accurately:
+
+{ritual_knowledge}
+
 Discord rules:
 - Keep answers under 800 characters
 - Use short paragraphs
 - Avoid long essays
 - Be Discord-friendly
 """
+
 
 def ask_siggy(question):
 

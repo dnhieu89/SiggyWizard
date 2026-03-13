@@ -1,0 +1,119 @@
+Overview
+
+Ritual is an expressive Layer-1 blockchain designed to enable advanced computation on-chain. Its main goal is to expand what smart contracts can do by allowing them to access AI and other specialized computing resources directly on blockchain infrastructure.
+
+Ritual sits at the intersection of crypto and artificial intelligence, creating a decentralized environment where AI models, compute tasks, and applications can operate transparently and verifiably.
+
+Core Vision
+
+Ritual aims to make smart contracts truly intelligent by integrating AI capabilities into blockchain systems. Instead of relying on centralized APIs or off-chain services, Ritual allows developers to run AI computations and advanced workloads in a decentralized and verifiable way.
+
+The long-term vision is to create a decentralized computational layer where AI models, decentralized applications, and blockchain networks can interact seamlessly.
+
+Key Components
+Ritual Chain
+
+Ritual Chain is a sovereign EVM-compatible Layer-1 blockchain designed for heterogeneous compute workloads, including AI inference, zero-knowledge proofs, and trusted execution environments.
+
+Developers can build applications that combine smart contracts with advanced compute tasks while maintaining blockchain security and transparency.
+
+Infernet
+
+Infernet is a decentralized oracle network created by Ritual that allows smart contracts to request AI computation from external nodes.
+
+It acts as a bridge between on-chain smart contracts and off-chain AI models, enabling verifiable AI inference across blockchain ecosystems.
+
+Infernet can also operate independently, allowing any EVM-compatible chain to access AI computation.
+
+Key Features
+Heterogeneous Compute
+
+Ritual supports multiple types of computation directly within its architecture, including:
+
+AI model inference
+
+Zero-knowledge proof generation
+
+Trusted execution environments (TEE)
+
+cross-chain data access
+
+This enables applications that require complex computing beyond traditional smart contracts.
+
+Scheduled Transactions
+
+Ritual allows smart contracts to schedule tasks automatically without relying on external keepers.
+
+This feature enables:
+
+automated trading strategies
+
+AI-driven decision making
+
+recurring on-chain actions.
+
+Enshrined AI Models
+
+AI models can be deployed and tracked on-chain, allowing developers to verify model origin, updates, and usage.
+
+This creates transparent ownership and provenance for AI models.
+
+Model Marketplace
+
+Ritual introduces a marketplace where developers can publish, monetize, and share AI models in a decentralized way.
+
+This enables new business models around AI and machine learning.
+
+Node Specialization
+
+Unlike traditional blockchains where all nodes perform the same tasks, Ritual allows nodes to specialize in different workloads such as AI inference or verification.
+
+This improves efficiency and scalability.
+
+Resonance Fee Market
+
+Ritual uses a new fee market mechanism called Resonance that dynamically prices compute workloads and matches them with suitable nodes.
+
+This allows efficient allocation of network resources.
+
+Developer Experience
+
+Ritual is fully compatible with the Ethereum ecosystem.
+
+Developers can use familiar tools such as:
+
+Foundry
+
+Hardhat
+
+ethers.js
+
+while gaining access to additional features like AI inference, scheduled execution, and heterogeneous compute.
+
+Use Cases
+
+Examples of applications that can be built on Ritual include:
+
+AI-powered DeFi protocols
+
+autonomous trading agents
+
+AI-driven lending platforms
+
+on-chain machine learning models
+
+decentralized AI marketplaces
+
+cross-chain AI services.
+
+Current Network Status
+
+Ritual Chain is currently running in a private testnet, allowing early developers to experiment with building applications on the network.
+
+Infernet, the decentralized AI oracle network, is already live and being used to bring AI computation to blockchain applications.
+
+Key Idea
+
+Traditional blockchains focus on transaction throughput and financial applications.
+
+Ritual instead focuses on expanding computation on-chain, enabling applications that combine blockchain security with artificial intelligence.
