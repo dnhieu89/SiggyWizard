@@ -66,6 +66,11 @@ def ask_siggy(question):
     print("AI RAW RESPONSE:", result)
 
     if "choices" not in result:
-        return "😹 Siggy's magic orb exploded. Try again."
+         return (
+        "😹 Siggy opened the magic orb to answer…\n"
+        "but the AI agent gas fee drained the treasury.\n"
+        "Wallet empty. Orb offline.\n"
+        "Try again after Siggy finds some coins!"
+    )
 
     return result["choices"][0]["message"]["content"]
