@@ -195,8 +195,8 @@ async def help(ctx):
 → Flip a coin with Siggy.
 
 🔮 **Siggy Fun**
-`!siggytalk`
-→ Random Siggy message.
+`!ask [question]`
+→ Ask Siggy anything and receive a response from the AI agent..
 
 
 ℹ️ **Help**
