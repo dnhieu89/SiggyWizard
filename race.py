@@ -28,7 +28,7 @@ def render_race(race):
     for cat in race:
         bar = "▰" * (cat["progress"] // 10) + "▱" * (10 - cat["progress"] // 10)
         lines.append(
-            f"**{cat['info']['id']}. {cat['info']['name']}**\n{bar} {cat['progress']}%"
+            f"**{cat['info']['id']}. {cat['info']['name']}**  {bar} {cat['progress']}%"
         )
 
     return "\n\n".join(lines)
