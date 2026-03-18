@@ -3,6 +3,10 @@ from discord.ext import commands
 import random
 import siggy_data
 from siggy_ai import ask_siggy
+import asyncio
+from db import get_user, update_coin, load_db
+from race import create_race, update_race, render_race
+from siggy_config import SIGGIES
 
 # ===============================
 # BOT CONFIG
@@ -21,7 +25,7 @@ bot = commands.Bot(
     intents=intents,
     help_command=None
 )
-
+bets = {}
 # ===============================
 # SIGGY PERSONALITY RESPONSES
 # ===============================
@@ -190,20 +194,44 @@ async def help(ctx):
 `!ritualbattle`
 → Battle a random AI agent in a chaotic fight.
 
+🏁 **Siggy Racing Arena**
+`!siggies`
+→ View all 9 Siggy racers.
+
+`!bet <siggy_id> <amount>`
+→ Bet your coins on a Siggy.
+Ex: `!bet 3 50`
+
+`!start_race`
+→ Start the race (top 3 winners will be shown).
+
+💰 **Economy**
+`!balance`
+→ Check your Siggy coins.
+
+`!leaderboard`
+→ View top richest players.
+
 🎲 **Fun Commands**
 `!siggycoin heads/tails`
 → Flip a coin with Siggy.
 
-🔮 **Siggy Fun**
+🔮 **Siggy AI**
 `!ask [question]`
-→ Ask Siggy anything and receive a response from the AI agent..
-
+→ Ask Siggy anything (AI-powered response).
 
 ℹ️ **Help**
 `!help`
 → Show this command list.
 
-😹 Siggy hopes you survive the battle.
+😹 **Siggy Tips**
+• 9 Siggies race to 100%
+• Only 1st place wins your bet
+• Win = x2 coins 💸
+• Lose = chaos 💀
+• More players = more chaos 🔥
+
+😈 Siggy whispers: Bet wisely... or get rekt.
 """
 
     await ctx.send(help_text)
@@ -289,6 +317,182 @@ async def ask(ctx, *, question):
     except Exception as e:
         print("AI ERROR:", e)
         await ctx.send("🧙‍♂️ Siggy's spell fizzled! The cosmic scroll refused to answer. Try again, summoner.")
+
+
+
+# ========================
+# 🔍 CHECK IMAGE EXISTS
+# ========================
+for s in SIGGIES:
+    if not os.path.exists(s["img"]):
+        print(f"❌ Missing image: {s['img']}")
+
+# ========================
+# 🎯 BET COMMAND
+# ========================
+@bot.command()
+async def bet(ctx, siggy_id: int, amount: int):
+
+    user = get_user(ctx.author.id)
+
+    if siggy_id < 1 or siggy_id > 9:
+        await ctx.send("😹 Siggy says: choose a valid cat (1-9).")
+        return
+
+    if amount <= 0:
+        await ctx.send("💀 Invalid bet amount.")
+        return
+
+    if user["coins"] < amount:
+        await ctx.send("💸 Not enough Siggy coins.")
+        return
+
+    bets[ctx.author.id] = {
+        "siggy_id": siggy_id,
+        "amount": amount
+    }
+
+    await ctx.send(
+        f"🎯 {ctx.author.mention} bets **{amount} coins** on Siggy #{siggy_id}"
+    )
+
+
+# ========================
+# 🏁 START RACE
+# ========================
+@bot.command()
+async def start_race(ctx):
+
+    if not bets:
+        await ctx.send("😴 No bets. No race.")
+        return
+
+    race = create_race()
+
+    msg = await ctx.send("🏁 **SIGGY RACE BEGINS** 🏁")
+
+    finished = []
+
+    while len(finished) < 3:
+
+        update_race(race)
+
+        for cat in race:
+            if cat not in finished and cat["progress"] >= 100:
+                finished.append(cat)
+
+        board = render_race(race)
+
+        await msg.edit(content=f"🏁 **Siggy Race Live**\n\n{board}")
+
+        await asyncio.sleep(1)
+
+    winners = finished[:3]
+    
+
+    # ========================
+    # 🥇🥈🥉 TOP 3 DISPLAY
+    # ========================
+    medals = ["🥇", "🥈", "🥉"]
+
+    for i, w in enumerate(winners):
+        file = discord.File(w["info"]["img"], filename=f"siggy{i}.png")
+
+        embed = discord.Embed(
+            title=f"{medals[i]} {w['info']['name']}",
+            description="Siggy speed = illegal 🚀"
+        )
+
+        embed.set_image(url=f"attachment://siggy{i}.png")
+
+        await ctx.send(file=file, embed=embed)
+
+    # ========================
+    # 📊 FINAL TEXT RESULT
+    # ========================
+    result_text = "🏁 **FINAL RESULTS**\n\n"
+
+    for i, w in enumerate(winners):
+        result_text += f"{medals[i]} {w['info']['name']}\n"
+
+    await ctx.send(result_text)
+
+    # ========================
+    # 💰 PAYOUT
+    # ========================
+    winners_list = []
+
+    for user_id, bet in bets.items():
+
+        if bet["siggy_id"] == first["info"]["id"]:
+            reward = bet["amount"] * 2
+            update_coin(user_id, reward)
+            winners_list.append((user_id, reward))
+        else:
+            update_coin(user_id, -bet["amount"])
+
+    # ========================
+    # 🎉 WINNERS LIST
+    # ========================
+    if winners_list:
+        text = "🎉 **Winning Wizards**\n\n"
+        for uid, reward in winners_list:
+            text += f"<@{uid}> +{reward} coins\n"
+    else:
+        text = "💀 Everyone got rekt by Siggy chaos."
+
+    await ctx.send(text)
+
+    bets.clear()
+
+
+# ========================
+# 💰 BALANCE
+# ========================
+@bot.command()
+async def balance(ctx):
+    user = get_user(ctx.author.id)
+    await ctx.send(f"💰 {ctx.author.mention} has **{user['coins']} coins**")
+
+
+# ========================
+# 🏆 LEADERBOARD
+# ========================
+@bot.command()
+async def leaderboard(ctx):
+
+    db = load_db()
+    sorted_users = sorted(db.items(), key=lambda x: x[1]["coins"], reverse=True)
+
+    text = "🏆 **SIGGY LEADERBOARD**\n\n"
+
+    for i, (uid, data) in enumerate(sorted_users[:10]):
+        text += f"{i+1}. <@{uid}> — {data['coins']} coins\n"
+
+    await ctx.send(text)
+
+
+# ========================
+# 🐱 SHOW SIGGIES
+# ========================
+@bot.command()
+async def siggies(ctx):
+
+    embed = discord.Embed(
+        title="🐱 Choose Your Siggy",
+        description="Use !bet <id> <amount>"
+    )
+
+    for s in SIGGIES:
+        embed.add_field(
+            name=f"{s['id']}. {s['name']}",
+            value="Ready to race 🚀",
+            inline=True
+        )
+
+    await ctx.send(embed=embed)
+
+
 
 # ===============================
 # BOT START
